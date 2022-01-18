@@ -1,11 +1,20 @@
 import settings
+import requests
 from telegram import InlineQueryResultArticle, InputTextMessageContent, Update
 from telegram.ext import CallbackContext
+from datetime import date
+
+today = date.today()
+print("Today's date:", today)
 
 
 def inlinequery(update: Update, context: CallbackContext) -> None:
     """Handle the inline query."""
     stQuery = update.inline_query.query
+    stProbintzi = "Gipuzkoa"
+    stHile = str(date.today().month)
+    stUrte = str(date.today().year)
+    response = requests.get("http://api.euskadi.eus/culture/events/v1.0/events/byMonth/"+stUrte+"/"+stHile+"/byMunicipality/"+stProbintzi+"/"+stQuery)
     results = []
     results.append(
         InlineQueryResultArticle(
