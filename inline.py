@@ -49,7 +49,7 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
             lstind = []
             # Euskarazkoak bakarrik mantendu
             for i in range(len(lstEkintzak)):
-                if lstEkintzak[i]['language'] == 'EU': # FIXME: field hori ez badauka, ez da onartuko baina arazorik ez
+                if lstEkintzak[i].get('language') == 'EU':
                     lstind.append(i)
             lstEkintzak = [lstEkintzak[i] for i in lstind]
 
