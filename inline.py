@@ -4,6 +4,7 @@ import requests
 from telegram import Update, InlineQueryResultArticle, InputTextMessageContent
 from telegram.ext import CallbackContext
 from dateutil.relativedelta import relativedelta
+import settings
 
 def inlinequery(update: Update, context: CallbackContext) -> None:
     """Handle the inline query."""
@@ -56,18 +57,36 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
             #Inline zerrenda sortu
             results = []
             for dicEkintza in lstEkintzak:
-                # TODO: ez dadila arazo izan field bat ez izatea. Tipa emotikono bidez?
+                stTitle = ''
+                if settings.dicMotaEmoji.get(dicEkintza.get('typeEu')):
+                    stTitle += settings.dicMotaEmoji.get(dicEkintza.get('typeEu'))
+                if dicEkintza.get('nameEu'):
+                    stTitle += dicEkintza.get('nameEu')
+                stStartDate = datetime.datetime.strptime(dicEkintza['startDate'][:-10], '%Y-%m-%d').strftime("%Y/%m/%d")
+                stEndDate = datetime.datetime.strptime(dicEkintza['startDate'][:-10], '%Y-%m-%d').strftime("%Y/%m/%d")
+                if stStartDate == stEndDate:
+                    stDescription = stStartDate+';'+' '
+                else:
+                    stDescription = stStartDate + '-' + stEndDate+'; '
+                if dicEkintza.get('openingHoursEu'):
+                    stDescription += dicEkintza.get('openingHoursEu')+'; '
+                if dicEkintza.get('priceEu'):
+                    stDescription += dicEkintza.get('priceEu')
+                if len(dicEkintza.get('images')) != 0:
+                    stThumbUrl = dicEkintza.get('images')[0].get('imageUrl')
+                stMessage = 'Etorri nahi?'
                 results.append(
                     InlineQueryResultArticle(
                         id=dicEkintza['id'],
-                        title=dicEkintza['nameEu'],
-                        description=dicEkintza['openingHoursEu'],
-                        thumb_url=dicEkintza['images'][0]['imageUrl'],
+                        title=stTitle,
+                        description=stDescription, # TODO: deskribapena bukatu
+                        thumb_url=stThumbUrl,
                         thumb_width=None,
                         thumb_height=None,
-                        input_message_content=InputTextMessageContent('Etorri nahi?')
+                        input_message_content=InputTextMessageContent(stMessage) # TODO: Mezua osatu
                     )
                 )
+            # TODO: id berekoekin zer egin????
             update.inline_query.answer(results)
 
 

@@ -21,4 +21,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-#
+# Ekintza mota emojiak
+dicMotaEmoji = {'Haur jarduera': '\U0001F476',
+                'Kontzertua': '\U0001F3B6',
+                'Antzerkia': '\U0001F3AD',
+                'Bertsolaritza': '\U0001F3A4',
+                'Hitzaldia': '\U0001F5E3',
+                'Erakusketa': '\U0001F5BC',
+                'Ikus-entzunezko emanaldia': '\U0001F3AC',
+                'Dantza': '\U0001F483',
+                'Formakuntza': '\U0001F9D1\U0000200D\U0001F3EB',
+                'Ekitaldiak/jardunaldiak': '\U0001F5EB'}
