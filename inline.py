@@ -15,10 +15,13 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
     lstHerriak = dicJson['items']
 
     for dicHerri in lstHerriak:
-        lstGidoi = dicHerri['nameEu'].split('-')
+        if '/' in dicHerri['nameEu']:
+            lstGidoi = dicHerri['nameEu'].split('/')
+        else:
+            lstGidoi = dicHerri['nameEu'].split('-')
         bGidoi = False
         for stZati in lstGidoi:
-            if stQuery == stZati:
+            if stQuery.lower().split() == stZati.lower().split():
                 bGidoi = True
                 break
         if bGidoi or stQuery == dicHerri['nameEu']:
@@ -62,7 +65,7 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
                 if dicEkintza.get('nameEu'):
                     stTitle += dicEkintza.get('nameEu')
                 stStartDate = datetime.datetime.strptime(dicEkintza['startDate'][:-10], '%Y-%m-%d').strftime("%Y/%m/%d")
-                stEndDate = datetime.datetime.strptime(dicEkintza['endDate'][:-10], '%Y-%m-%d').strftime("%Y/%m/%d")
+                stEndDate = datetime.datetime.strptime( dicEkintza['endDate'][:-10], '%Y-%m-%d').strftime("%Y/%m/%d")
                 if stStartDate == stEndDate:
                     stDescription = f"{stStartDate} "
                 else:
@@ -76,9 +79,28 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
                 stThumbUrl = ''
                 if len(dicEkintza.get('images')) != 0:
                     stThumbUrl = dicEkintza.get('images')[0].get('imageUrl')
-                stMessage = f'Nor animatuko da?\n*{stTitle}*\n{stDescription}\n'
-                # if dicEkintza.get("sourceUrlEu"):
-                #     stMessage += f'[inlne URL]({dicEkintza["sourceUrlEu"]})'
+                # Mezua
+                stMessage = 'Kaixo! Hara plan puxka. Animatuko?\n'
+                if dicEkintza.get('nameEu'):
+                    stMessage += f"__*{dicEkintza.get('nameEu')}*__".upper()
+                '''if dicEkintza.get('typeEu'):
+                    stMessage += settings.dicMotaEmoji.get(dicEkintza.get('typeEu'))+' '
+                stStartDate = datetime.datetime.strptime(dicEkintza['startDate'][:-10], '%Y-%m-%d').strftime("%Y/%m/%d")
+                stEndDate = datetime.datetime.strptime(dicEkintza['endDate'][:-10], '%Y-%m-%d').strftime("%Y/%m/%d")
+                if stStartDate == stEndDate:
+                    stDescription = f"{stStartDate} "
+                else:
+                    stDescription = f"{stStartDate} - {stEndDate} "
+                if dicEkintza.get('openingHoursEu'):
+                    stDescription += f"({dicEkintza.get('openingHoursEu')}) "
+                if dicEkintza.get('priceEu'):
+                    stDescription += f"[{dicEkintza.get('priceEu')}]"
+                if dicEkintza.get('establishmentEu'):
+                    stDescription += f"\n{dicEkintza.get('establishmentEu')}"
+                if dicEkintza.get("sourceUrlEu"):
+                    stMessage += f'[informazio gehiago]({dicEkintza["sourceUrlEu"]})\n'
+                if dicEkintza.get("purchaseUrlEu"):
+                    stMessage += f'[sarrerak]({dicEkintza["purchaseUrlEu"]})\n'''
                 results.append(
                     InlineQueryResultArticle(
                         id=dicEkintza['id'],
@@ -87,11 +109,12 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
                         thumb_url=stThumbUrl,
                         thumb_width=None,
                         thumb_height=None,
-                        input_message_content=InputTextMessageContent(stMessage, parse_mode='Markdown') # TODO: Mezua osatu
+                        input_message_content=InputTextMessageContent(stMessage, parse_mode="Markdown") # TODO: Mezua osatu
                     )
                 )
-                update.inline_query.answer(results)
-
+            update.inline_query.answer(results)
+            # TODO: Emaitzarik aurkitu ez den kasua
+            # TODO: Kulturklikekoei idatzi gaztelerazko izenburuekin
 
 '''def chosen(update: Update, context: CallbackContext) -> None:
     # Ttantto bat gehitu aukeratutako dokumentuari

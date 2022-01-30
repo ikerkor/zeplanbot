@@ -21,6 +21,7 @@ def main() -> None:
 
     # Hasi bot-a
     if settings.HEROKU == '0':
+
         updater.start_polling()
     elif settings.HEROKU == '1':
         updater.start_webhook(listen="0.0.0.0",
