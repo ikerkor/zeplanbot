@@ -65,7 +65,7 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
                 if dicEkintza.get('nameEu'):
                     stTitle += dicEkintza.get('nameEu')
                 stStartDate = datetime.datetime.strptime(dicEkintza['startDate'][:-10], '%Y-%m-%d').strftime("%Y/%m/%d")
-                stEndDate = datetime.datetime.strptime( dicEkintza['endDate'][:-10], '%Y-%m-%d').strftime("%Y/%m/%d")
+                stEndDate = datetime.datetime.strptime(dicEkintza['endDate'][:-10], '%Y-%m-%d').strftime("%Y/%m/%d")
                 if stStartDate == stEndDate:
                     stDescription = f"{stStartDate} "
                 else:
@@ -80,27 +80,25 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
                 if len(dicEkintza.get('images')) != 0:
                     stThumbUrl = dicEkintza.get('images')[0].get('imageUrl')
                 # Mezua
-                stMessage = 'Kaixo! Hara plan puxka. Animatuko?\n'
+                stMessage = 'Hara plan puxka! Animatuko?\n'
                 if dicEkintza.get('nameEu'):
-                    stMessage += f"__*{dicEkintza.get('nameEu')}*__".upper()
-                '''if dicEkintza.get('typeEu'):
-                    stMessage += settings.dicMotaEmoji.get(dicEkintza.get('typeEu'))+' '
-                stStartDate = datetime.datetime.strptime(dicEkintza['startDate'][:-10], '%Y-%m-%d').strftime("%Y/%m/%d")
-                stEndDate = datetime.datetime.strptime(dicEkintza['endDate'][:-10], '%Y-%m-%d').strftime("%Y/%m/%d")
+                    stMessage += f"*{dicEkintza.get('nameEu')}*".upper()
+                if dicEkintza.get('typeEu'):
+                    stMessage += f" _({dicEkintza.get('typeEu')})_"
                 if stStartDate == stEndDate:
-                    stDescription = f"{stStartDate} "
+                    stMessage += f"\n\U0001F4C6 {stStartDate}"
                 else:
-                    stDescription = f"{stStartDate} - {stEndDate} "
+                    stMessage += f"\n\U0001F4C6 {stStartDate} - {stEndDate}"
                 if dicEkintza.get('openingHoursEu'):
-                    stDescription += f"({dicEkintza.get('openingHoursEu')}) "
-                if dicEkintza.get('priceEu'):
-                    stDescription += f"[{dicEkintza.get('priceEu')}]"
+                    stMessage += f"\n\U000023F0 {dicEkintza.get('openingHoursEu')} "
                 if dicEkintza.get('establishmentEu'):
-                    stDescription += f"\n{dicEkintza.get('establishmentEu')}"
+                    stMessage += f"\n\U0001F4CD {dicEkintza.get('establishmentEu')}"
+                if dicEkintza.get('priceEu'):
+                    stMessage += f"\n\U0001F39F\U0000FE0F {dicEkintza.get('priceEu')}"
                 if dicEkintza.get("sourceUrlEu"):
-                    stMessage += f'[informazio gehiago]({dicEkintza["sourceUrlEu"]})\n'
+                    stMessage += f'\n[info+]({dicEkintza["sourceUrlEu"]})'
                 if dicEkintza.get("purchaseUrlEu"):
-                    stMessage += f'[sarrerak]({dicEkintza["purchaseUrlEu"]})\n'''
+                    stMessage += f" / [sarrerak]({dicEkintza['purchaseUrlEu']})"
                 results.append(
                     InlineQueryResultArticle(
                         id=dicEkintza['id'],
@@ -114,7 +112,7 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
                 )
             update.inline_query.answer(results)
             # TODO: Emaitzarik aurkitu ez den kasua
-            # TODO: Kulturklikekoei idatzi gaztelerazko izenburuekin
+            # TODO: Leihaketa emojia sortu, hitzaldianea zuezendu (mugikorren ez da ikusten)
 
 '''def chosen(update: Update, context: CallbackContext) -> None:
     # Ttantto bat gehitu aukeratutako dokumentuari
