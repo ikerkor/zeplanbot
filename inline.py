@@ -90,7 +90,7 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
             if len(dicEkintza.get('images')) != 0:
                 stThumbUrl = dicEkintza.get('images')[0].get('imageUrl')
             # Mezua
-            stMessage = 'Hara plan puxka! Animatuko?\n'
+            stMessage = 'Hara, plan puska! Animatuko?\n'
             stIzenburua = ''
             if dicEkintza.get('nameEu'):
                 stMessage += f"*{dicEkintza.get('nameEu')}*".upper()
