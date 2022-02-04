@@ -5,8 +5,16 @@ from telegram.ext import CallbackContext
 from dateutil.relativedelta import relativedelta
 import settings
 
+# Aldagai globalak
+iErabilera = 0 # Zenbagailua
+
 def inlinequery(update: Update, context: CallbackContext) -> None:
     """Handle the inline query."""
+    global iErabilera
+    iErabilera += 1
+    if iErabilera == 10:
+        context.bot.send_message(chat_id=settings.MY_TELEGRAM_USER, text='10 erabilera!')
+        iErabilera = 0
     stQuery = update.inline_query.query
     # Herrien kodeak lortu
     response = requests.get("https://api.euskadi.eus/culture/events/v1.0/municipalities?_elements=300&_page=1")

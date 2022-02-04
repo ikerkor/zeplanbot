@@ -11,6 +11,7 @@ HEROKU = os.environ.get('HEROKU')
 
 # Telegram bot TOKEN and my user
 TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
+MY_TELEGRAM_USER = os.environ.get('MY_TELEGRAM_USER')
 
 # Set the port number to listen in for the webhook
 PORT = int(os.environ.get('PORT', 8443))
