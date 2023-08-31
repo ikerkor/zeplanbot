@@ -5,9 +5,9 @@ import logging
 # Ingurune-aldagaiak zamatu, .env fitxategirik badago
 load_dotenv()
 
-# Herokun edo lokalean ari garen jakiteko
+# B4A-n edo lokalean ari garen jakiteko (bool)
 
-HEROKU = os.environ.get('HEROKU')
+B4A = os.environ.get('B4A')
 
 # Telegram bot TOKEN and my user
 TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')

@@ -1,6 +1,8 @@
-import settings, inline
-from telegram.ext import Updater, InlineQueryHandler, CommandHandler, CallbackContext, \
-    MessageHandler, Filters, ChosenInlineResultHandler, JobQueue
+from telegram.ext import Updater, InlineQueryHandler
+
+import inline
+import settings
+
 
 def main() -> None:
     """Run the bot."""
@@ -20,7 +22,7 @@ def main() -> None:
     dispatcher.add_handler(InlineQueryHandler(inline.inlinequery))
 
     # Hasi bot-a
-    if settings.HEROKU == '0':
+    if settings.B4A == '0':
 
         updater.start_polling()
     elif settings.HEROKU == '1':

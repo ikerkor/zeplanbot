@@ -8,6 +8,7 @@ import settings
 # Aldagai globalak
 iErabilera = 0 # Zenbagailua
 
+
 def inlinequery(update: Update, context: CallbackContext) -> None:
     """Handle the inline query."""
     global iErabilera
