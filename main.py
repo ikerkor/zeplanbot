@@ -23,13 +23,15 @@ def main() -> None:
 
     # Hasi bot-a
     if settings.B4A == '0':
-
         updater.start_polling()
     elif settings.B4A == '1':
+        settings.logger.info("Back4app-etik executatuta")
+        settings.logger.info("PORT: " + settings.PORT)
+        settings.logger.info("TELEGRAM USER: " + settings.MY_TELEGRAM_USER)
         updater.start_webhook(listen="0.0.0.0",
                               port=int(settings.PORT),
                               url_path=settings.TELEGRAM_TOKEN,
-                              webhook_url='https://zeplanbot.herokuapp.com/' + settings.TELEGRAM_TOKEN)
+                              webhook_url='https://zeplanbot1-ikorker.b4a.run/' + settings.TELEGRAM_TOKEN)
 
     # Block until the user presses Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
