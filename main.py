@@ -22,16 +22,17 @@ def main() -> None:
     dispatcher.add_handler(InlineQueryHandler(inline.inlinequery))
 
     # Hasi bot-a
-    if settings.B4A == '0':
+    if settings.WEBHOOK == '0':
+        settings.logger.info("Polling bidez exekutatuta")
         updater.start_polling()
-    elif settings.B4A == '1':
-        settings.logger.info("Back4app-etik executatuta")
+    elif settings.WEBHOOK == '1':
+        settings.logger.info("Webhook bidez exekutatuta")
         settings.logger.info("PORT: " + settings.PORT)
         settings.logger.info("TELEGRAM USER: " + settings.MY_TELEGRAM_USER)
         updater.start_webhook(listen="0.0.0.0",
                               port=int(settings.PORT),
                               url_path=settings.TELEGRAM_TOKEN,
-                              webhook_url='https://zeplanbot1-ikorker.b4a.run/' + settings.TELEGRAM_TOKEN)
+                              webhook_url=settings.WEBHOOK_URL + settings.TELEGRAM_TOKEN)
 
     # Block until the user presses Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
