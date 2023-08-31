@@ -5,18 +5,23 @@ import logging
 # Ingurune-aldagaiak zamatu, .env fitxategirik badago
 load_dotenv()
 
-# Webhook bidez edo polling bidez ari garen jakiteko (bool)
-WEBHOOK = os.environ.get('B4A')
 
-# Webhook url helbidea
-WEBHOOK_URL="https://zeplanbot.herokuapp.com/"  # Adibidea baino ez
-
-# Set the port number to listen in for the webhook
-PORT = int(os.environ.get('PORT', 8443))  # B4A-eko deploymentean ez da erabiltzen.
+##### Beharrezko ingurun aldagaiak
 
 # Telegram bot TOKEN and my user
 TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
 MY_TELEGRAM_USER = os.environ.get('MY_TELEGRAM_USER')
+
+##### Webhook bidez egin nahi bada bete beharrezko ingurune aldagaiak
+
+# Webhook bidez edo polling bidez ari garen jakiteko (bool, berez 0)
+WEBHOOK = os.environ.get("WEBHOOK", "0")
+
+# Webhook url helbidea
+WEBHOOK_URL= os.environ.get("WEBHOOK", "https://zeplanbot.herokuapp.com/") # "https://zeplanbot.herokuapp.com/" Adibidea baino ez
+
+# Set the port number to listen in for the webhook
+PORT = int(os.environ.get('PORT', 8443))  # B4A-eko deploymentean ez da erabiltzen.
 
 
 # Enable logging

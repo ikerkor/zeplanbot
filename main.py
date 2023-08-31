@@ -21,14 +21,15 @@ def main() -> None:
     # Lerro barneko queryaren kudeatzailea gehitu
     dispatcher.add_handler(InlineQueryHandler(inline.inlinequery))
 
-    # Hasi bot-a
-    if settings.WEBHOOK == '0':
+    # Hasi bot-a polling ala webhook bidez
+    if settings.WEBHOOK == "0":
         settings.logger.info("Polling bidez exekutatuta")
         updater.start_polling()
-    elif settings.WEBHOOK == '1':
+    elif settings.WEBHOOK == "1":
         settings.logger.info("Webhook bidez exekutatuta")
-        settings.logger.info("PORT: " + settings.PORT)
-        settings.logger.info("TELEGRAM USER: " + settings.MY_TELEGRAM_USER)
+        settings.logger.info("PORT: " + str(settings.PORT))
+        settings.logger.info("TELEGRAM USER: " + str(settings.MY_TELEGRAM_USER))
+        settings.logger.info("WEBHOOK_URL: " + str(settings.WEBHOOK_URL))
         updater.start_webhook(listen="0.0.0.0",
                               port=int(settings.PORT),
                               url_path=settings.TELEGRAM_TOKEN,
