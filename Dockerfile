@@ -1,5 +1,5 @@
 # Choosing an image for you container.
-FROM python:3.1O
+FROM python:3.1O-alpine
 # Setting your working directory
 WORKDIR /app
 # This command would copy EVERY FILE from your project folder into your container, so be careful.

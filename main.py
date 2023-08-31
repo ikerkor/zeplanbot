@@ -25,7 +25,7 @@ def main() -> None:
     if settings.B4A == '0':
 
         updater.start_polling()
-    elif settings.HEROKU == '1':
+    elif settings.B4A == '1':
         updater.start_webhook(listen="0.0.0.0",
                               port=int(settings.PORT),
                               url_path=settings.TELEGRAM_TOKEN,
