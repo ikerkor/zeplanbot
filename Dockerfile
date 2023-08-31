@@ -9,4 +9,4 @@ COPY . .
 RUN pip install -r requirements.txt
 # This command basically executes your main file with Python.
 CMD ["python", "main.py"]
-EXPOSE 80/tcp
+EXPOSE 8443/tcp
